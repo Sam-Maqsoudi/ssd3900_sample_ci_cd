@@ -1,42 +1,167 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+body {
+  background-color: #444;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+.calculator {
+  width: 320px;
+  margin: 50px auto;
+  padding: 20px;
+  border-radius: 10px;
+  background: #888;
+  color: white;
   text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.display {
+  font-size: 2.5rem;
+  font-family: monospace;
+  padding: 10px;
+  background: black;
+  color: lime;
+  text-align: right;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.buttons {
+  display: grid;
+  grid-template-areas:
+    "ac ac c ms"
+    "mc mr m-minus m-plus"
+    "seven eight nine divide"
+    "four five six multiply"
+    "one two three subtract"
+    "zero decimal sign add"
+    "equal equal equal equal";
+  gap: 8px;
+  padding: 10px;
 }
 
-.card {
-  padding: 2em;
+.ac {
+  grid-area: ac;
+}
+.c {
+  grid-area: c;
+}
+.ms {
+  grid-area: ms;
+}
+.mc {
+  grid-area: mc;
+}
+.mr {
+  grid-area: mr;
+}
+.m-minus {
+  grid-area: m-minus;
+}
+.m-plus {
+  grid-area: m-plus;
+}
+.seven {
+  grid-area: seven;
+}
+.eight {
+  grid-area: eight;
+}
+.nine {
+  grid-area: nine;
+}
+.divide {
+  grid-area: divide;
+}
+.four {
+  grid-area: four;
+}
+.five {
+  grid-area: five;
+}
+.six {
+  grid-area: six;
+}
+.multiply {
+  grid-area: multiply;
+}
+.one {
+  grid-area: one;
+}
+.two {
+  grid-area: two;
+}
+.three {
+  grid-area: three;
+}
+.subtract {
+  grid-area: subtract;
+}
+.zero {
+  grid-area: zero;
+}
+.decimal {
+  grid-area: decimal;
+}
+.sign {
+  grid-area: sign;
+}
+.add {
+  grid-area: add;
+}
+.equal {
+  grid-area: equal;
 }
 
-.read-the-docs {
-  color: #888;
+button {
+  font-size: 1.5em;
+  padding: 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+  background: #333;
+  color: white;
+}
+
+button:hover {
+  background: #555;
+}
+
+.add,
+.subtract,
+.multiply,
+.divide,
+.equal {
+  background: #ff9500;
+}
+
+.add:hover,
+.subtract:hover,
+.multiply:hover,
+.divide:hover {
+  background: #ffb74d;
+}
+
+.ac,
+.c {
+  background: #d9534f;
+}
+
+.ac:hover,
+.c:hover {
+  background: #ff6f61;
+}
+
+.equal {
+  background: #5cb85c;
+}
+
+.equal:hover {
+  background: #7dd87d;
 }

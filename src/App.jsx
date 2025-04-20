@@ -1,35 +1,126 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
+import { calculatorButtons } from "./calculator-bonus-02-button-data";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [display, setDisplay] = useState("0");
+  const [memory, setMemory] = useState(null);
+  const [operator, setOperator] = useState(null);
+  const [waitingForSecondNumber, setWaitingForSecondNumber] = useState(false);
+
+  function handleClick(btnData) {
+    switch (btnData.type) {
+      case "number":
+        handleNumber(btnData.value);
+        break;
+      case "operator":
+        handleOperator(btnData.value);
+        break;
+      case "clear":
+        handleClear(btnData.value);
+        break;
+      case "memory":
+        handleMemory(btnData.value);
+        break;
+      case "enter":
+        calculateResult();
+        break;
+      case "sign":
+        toggleSign();
+        break;
+      default:
+        break;
+    }
+  }
+
+  function handleNumber(value) {
+    if (waitingForSecondNumber) {
+      setDisplay(String(value));
+      setWaitingForSecondNumber(false);
+    } else {
+      setDisplay(display === "0" ? String(value) : display + value);
+    }
+  }
+
+  function handleOperator(op) {
+    if (!waitingForSecondNumber) {
+      setMemory(parseFloat(display));
+      setWaitingForSecondNumber(true);
+      setOperator(op);
+    }
+  }
+
+  function handleClear(value) {
+    if (value === "All Clear") {
+      setDisplay("0");
+      setMemory(null);
+      setOperator(null);
+    } else {
+      setDisplay("0");
+    }
+  }
+
+  function handleMemory(value) {
+    if (value === "Memory Save") {
+      setMemory(parseFloat(display));
+    } else if (value === "Memory Clear") {
+      setMemory(null);
+    } else if (value === "Memory Recall" && memory !== null) {
+      setDisplay(String(memory));
+    } else if (value === "Memory Addition" && memory !== null) {
+      setMemory(memory + parseFloat(display));
+    } else if (value === "Memory Subtract" && memory !== null) {
+      setMemory(memory - parseFloat(display));
+    }
+  }
+
+  function calculateResult() {
+    if (operator && memory !== null) {
+      const current = parseFloat(display);
+      let result;
+      switch (operator) {
+        case "+":
+          result = memory + current;
+          break;
+        case "-":
+          result = memory - current;
+          break;
+        case "*":
+          result = memory * current;
+          break;
+        case "/":
+          result = memory / current;
+          break;
+        default:
+          return;
+      }
+      setDisplay(String(result));
+      setMemory(null);
+      setOperator(null);
+      setWaitingForSecondNumber(false);
+    }
+  }
+
+  function toggleSign() {
+    setDisplay(String(parseFloat(display) * -1));
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="calculator">
+      <div className="display">{display}</div>
+      <div className="buttons">
+        {calculatorButtons.map((btnData) => (
+          <button
+            key={btnData.value}
+            className={btnData.className}
+            onClick={() => handleClick(btnData)}
+          >
+            {btnData.text}
+          </button>
+        ))}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
