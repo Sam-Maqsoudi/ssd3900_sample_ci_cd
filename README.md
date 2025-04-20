@@ -8,7 +8,7 @@ This project demonstrates a complete CI/CD pipeline for a React application usin
 
 ## Live Demo
 
-[View the live demo](https://github.com/Sam-Maqsoudi/ssd3900_sample_ci_cd)
+[View the live demo](https://sam-maqsoudi.github.io/ssd3900_sample_ci_cd/)
 
 ## Technology Stack
 
